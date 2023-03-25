@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Pasien;
 use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
@@ -14,7 +15,7 @@ class UserDatatables extends LivewireDatatable
 {
     public function builder()
     {
-        return User::query();
+        return Pasien::query();
     }
 
     public function columns()
@@ -22,19 +23,23 @@ class UserDatatables extends LivewireDatatable
         return [
             NumberColumn::name('id')
                 ->label('IrD')
-                ->sortBy('id'),
-            Column::checkbox('name'),
+                ->sortBy('id')
+                ->searchable(),
 
-            Column::name('name')
-                ->label('Name'),
+            Column::name('nama')
+                ->label('Name')
+                ->searchable(),
 
-            Column::name('email')
-                ->label('email'),
+            Column::name('jenkel')
+                ->label('jenkel'),
+
+            Column::name('nik')
+                ->label('nik'),
 
             Column::name('created_at')
                 ->label('Creation Date'),
 
-            Column::callback('name' ,function(){
+            Column::callback('nama' ,function(){
                 return '<a href="{{$name}}">Inactive</a>';
             }),
         ];
